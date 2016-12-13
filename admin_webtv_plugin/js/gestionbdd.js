@@ -47,17 +47,17 @@ $(document).ready(function(){
     }); 
 
     $('#bouton_inserer_contenu').click(function(){
-        
+        console.log('salut')
         var titre=$('#input_titre_inserer').val();
         var url_video=$('#input_url_inserer').val();
         var artiste_video=$('#input_artiste_inserer').val();
-        
+        console.log(artiste_video)
         var genres=$('#genres').val();
         var album=$('#input_album').val();
         var annee=$('#input_annee').val();
         var qualite=$('#qualite').val();
-        console.log(genres);
-        console.log('test');
+    
+        
       if(titre != '' && url_video != '' && artiste_video != '' && genres != ''){
           $.post(
               ajaxurl,
@@ -72,6 +72,9 @@ $(document).ready(function(){
                   'qualite':qualite
               },
               function(response){
+                 if(response.success==true){
+                     $('#confirmation').append('Le morceau a bien été ajouté à la base de donnée');
+                 }
                   $('#tableau_morceaux_par_genre').html('');
                   $('#div_tableau_morceaux_par_genre').addClass('tableaux_morceaux_par_genre_css');
                   $('#tableau_morceaux_par_genre').append('<thead><tr><th>Titre</th><th>Artiste</th><th>Album</th><th>Url</th><th>Annee</th></tr></thead>');

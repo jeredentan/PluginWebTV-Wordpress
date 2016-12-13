@@ -10,9 +10,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 define( 'MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
-
-
-//do_action('pluginwebtv_maj_playlist_table');
 function php_includes(){
 
     include('includes/GenerationPlaylist.php');
@@ -35,16 +32,10 @@ function plugin_webtvfil(){
 
         $page_menu=add_menu_page( 'WEBTV Plugin Menu', 'WEBTV', 'manage_options', 'sous-menu-webtv', 'callback_menu_erreur', plugins_url( 'admin_webtv_plugin/image/iconetv.png' ));
     }else{
-        
-     //add_management_page('WEBTV_ADMIN','WEBTV','manage_options','webtv-tools','tools_callback');//Page dans outils
-        $page_menu=add_menu_page( 'WEBTV Plugin Menu', 'WEBTV', 'manage_options', 'sous-menu-webtv', 'callback_menu_webtv', plugins_url( 'admin_webtv_plugin/image/iconetv.png' ));
+         $page_menu=add_menu_page( 'WEBTV Plugin Menu', 'WEBTV', 'manage_options', 'sous-menu-webtv', 'callback_menu_webtv', plugins_url( 'admin_webtv_plugin/image/iconetv.png' ));
         $page_nouveaux_reglages=add_submenu_page( 'sous-menu-webtv', 'Nouveaux Réglages', 'Nouvelle Playlist', 'manage_options', 'myplugin-submenu1', 'nouveaux_reglages_callback' );
-      //  add_submenu_page( 'sous-menu-webtv', 'Réglages Enregistrés', 'Réglages de Playlist Enregistrés', 'manage_options', 'myplugin-submenu2', 'reglages_enregistres_callback' );
-        $gestioncontenu=add_submenu_page( 'sous-menu-webtv', 'Réglages Enregistrés', 'Gestion du contenu', 'manage_options', 'myplugin-submenu2', 'gestion_bdd_callback' );
+      $gestioncontenu=add_submenu_page( 'sous-menu-webtv', 'Réglages Enregistrés', 'Gestion du contenu', 'manage_options', 'myplugin-submenu2', 'gestion_bdd_callback' );
         $pagevalidation=add_plugins_page('My Plugin Page', 'My Plugin', 'read', 'pagevalidation', 'include_pagevalidation');
-
-
-
         add_action('admin_print_styles-' . $page_menu, 'scripts_page_principale');
         add_action('admin_print_styles-'.$gestioncontenu,'scripts_gestion_contenu');
         add_action('admin_print_styles-' .  $page_nouveaux_reglages, 'scripts_nouveaux_reglages');
@@ -53,8 +44,6 @@ function plugin_webtvfil(){
 }
 
 add_action( 'admin_menu', 'plugin_webtvfil' );
-
-
 
 function scripts_page_principale(){
 
@@ -364,18 +353,7 @@ global $wpdb;
 
     $remplir_table_album="
     INSERT INTO `" . $wpdb->prefix . "album_webtv_plugin` (`id`, `album`) VALUES
-    (13, ''),
-(7, 'Afro Trap'),
-(11, 'Be Sensational'),
-(3, 'By Your Side'),
-(4, 'Discipline'),
-(6, 'Ex Umbra In Solem'),
-(2, 'La cour des grands'),
-(9, 'labour of Love'),
-(10, 'Myriam Road'),
-(8, 'Rays of Resistance'),
-(5, 'Roses'),
-(12, 'War Eternal');";
+    (13, '');";
     
     $remplir_table_annee="
     INSERT INTO `" . $wpdb->prefix . "annee_webtv_plugin` (`id`, `annee`) VALUES
@@ -621,14 +599,14 @@ global $wpdb;
     
     
     $wpdb->query($remplir_table_album);
-    $wpdb->query($remplir_table_annee);
-    $wpdb->query($remplir_table_artiste);
+    //$wpdb->query($remplir_table_annee);
+    //$wpdb->query($remplir_table_artiste);
     $wpdb->query($remplir_table_genre);
-    $wpdb->query($remplir_table_playlist);
-    $wpdb->query($remplir_table_playlists_enregistrees);
+   // $wpdb->query($remplir_table_playlist);
+    //$wpdb->query($remplir_table_playlists_enregistrees);
     $wpdb->query($remplir_table_qualite);
-    $wpdb->query($remplir_table_relation);
-    $wpdb->query($remplir_table_videos);
+    /*$wpdb->query($remplir_table_relation);*/
+   // $wpdb->query($remplir_table_videos);
     
     
 }
@@ -673,7 +651,6 @@ function effacer_video_jouee_player(){
 
 add_action( 'wp_ajax_effacer_video_jouee_player', 'effacer_video_jouee_player' );
 
-// A COMPLETER POUR METTRE A JOUR EN FONCTION DES PLAYLITS ENREGISTREES PRESENTES QUAND ON LANCE LE PLAYER
 
 function recuperer_videos_player_page_principale() {
     do_action('pluginwebtv_generer_la_playlist');
@@ -688,13 +665,6 @@ function recuperer_videos_player_page_principale() {
 
 add_action( 'wp_ajax_recuperer_videos_player_page_principale', 'recuperer_videos_player_page_principale' );
 add_action( 'wp_ajax_nopriv_recuperer_videos_player_page_principale', 'recuperer_videos_player_page_principale' );
-
-
-
-
-
-
-
 
 
 ?>

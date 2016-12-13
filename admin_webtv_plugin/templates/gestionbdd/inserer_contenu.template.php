@@ -11,14 +11,14 @@
     <label>(plusieurs possibles mais séparés par des virgules)</label>
 </p>
 <p>  <label> Genre :</label>
-    <select id="genres" name="genres">
+    <select id="genres" name="genres" >
         <option value="">-- Genres--</option>
     </select></p>
 
 <p> <label> Album :</label>
-    <input type="text" name="input_album"></p>
+    <input type="text" name="input_album" id="input_album"></p>
 <p>   <label> Annee de production :</label>
-    <input type="text" name="input_annee"></p>
+    <input type="text" name="input_annee" id="input_annee"></p>
 <p>  <label> Qualite du clip :</label>
     <select id="qualite" name="qualite">
         <option value="">-- Qualite--</option>
@@ -28,4 +28,5 @@
 <p>
 
     <input type="button" class="btn btn-primary" id="bouton_inserer_contenu" value="Inserer">
+    <div id="confirmation"></div>
 </p>

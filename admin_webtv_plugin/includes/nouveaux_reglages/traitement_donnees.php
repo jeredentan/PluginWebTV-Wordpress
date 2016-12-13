@@ -19,7 +19,7 @@ add_action('wp_ajax_recuperer_noms_reglages','recuperer_noms_reglages');
 add_action('wp_ajax_recuperer_derniers_pourcentages_enregistrees','recuperer_derniers_pourcentages_enregistrees');
 add_action('wp_ajax_recuperer_tous_reglages_enregistres','recuperer_tous_reglages_enregistres');
 add_action('wp_ajax_supprimer_toutes_videos','supprimer_toutes_videos');
-add_action('wp_ajax_inserer_contenu_pluginwebtv','inserer_contenu_pluginwebtv');
+//add_action('wp_ajax_inserer_contenu_pluginwebtv','inserer_contenu_pluginwebtv');
 add_action( 'pluginwebtv_generer_la_playlist', 'generer_la_playlist');
 add_action('wp_ajax_recuperer_artiste_with_title','recuperer_artiste_with_title');
 
@@ -518,93 +518,6 @@ function supprimer_toutes_videos(){
 
 }
 
-function inserer_contenu_pluginwebtv(){
-
-    $titre;
-    $artiste;
-    $url;
-    $album;
-    $genre;
-    $qualite;
-    $annee;
-
-    $video_id;
-    $artiste_id;
-    $genre_id;
-    $qualite_id;
-    $album_id;
-    $annee_id;
-
-
-    $titre=$_POST['titre'];
-    $artiste=$_POST['artiste_video'];
-    $url=$_POST['url_video'];
-    $genre=$_POST['genre'];
-
-
-    if(isset($_POST['album'])){
-        $album=$_POST['album'];
-    }else{
-        $album=13;
-    }
-    if(isset($_POST['annee'])){    
-        $annee=$_POST['annee'];}
-    else{
-        $annee=2016;
-    }
-
-    if(isset($_POST['qualite'])){
-        $qualite=$_POST['qualite'];
-    }else{
-        $qualite=1;
-    }
-
-
-    $inserer_video="INSERT INTO " . $wpdb->prefix . "videos_webtv_plugin(titre,url) VALUES('$titre','$url');";
-    $wpdb->query($inserer_video);
-    $recup_id_video="SELECT id FROM " . $wpdb->prefix . "videos_webtv_plugin WHERE url='$url';";
-    $result_id_video=$wpdb->get_results($recup_id_video);
-    foreach($result_id_video as $id_video){
-        $video_id=$id_video->id;
-    }
-
-    $inserer_artiste="INSERT INTO " . $wpdb->prefix . "artiste_webtv_plugin(nom) VALUES('$artiste');";
-    $wpdb->query($inserer_artiste);;
-    $recup_id_artiste="SELECT id FROM " . $wpdb->prefix . "videos_webtv_plugin WHERE nom='$artiste';";
-    $result_artiste=$wpdb->get_results($recup_id_artiste);
-    foreach($result_artiste as $id_artiste){
-        $artiste_id=$id_artiste->id;
-    }
-
-    $recup_genre="SELECT id FROM " . $wpdb->prefix . "genre_webtv_plugin WHERE Genre='$genre';";
-    $genre_recup=$wpdb->get_results($recup_genre);
-    foreach($genre_recup as $id_genre){
-        $genre_id=$id_genre->id;
-    }
-
-
-    $inserer_annee="INSERT INTO " . $wpdb->prefix . "annee_webtv_plugin(annee) VALUES('$annee');";
-    $wpdb->query($inserer_annee);
-    $recup_id_annee="SELECT id FROM " . $wpdb->prefix . "annee_webtv_plugin WHERE annee='$annee';";
-    $result_id_annee=$wpdb->get_results($recup_id_annee);
-    foreach($result_id_annee as $id_annee){
-        $annee_id=$id_annee->id;
-    }
-
-    $inserer_album="INSERT INTO " . $wpdb->prefix . "album_webtv_plugin(album) VALUES('$album');";
-    $wpdb->query($inserer_album);
-    $recup_id_album="SELECT id FROM " . $wpdb->prefix . "album_webtv_plugin WHERE album='$album';";
-    $result_id_album=$wpdb->get_results($recup_id_album);
-    foreach($result_id_album as $album_id_r){
-        $album_id=$album_id_r->id;
-    }
-
-
-    $remplir_relation="INSERT INTO " . $wpdb->prefix . "relation_webtv_plugin(video_id,artiste_id,album_id,annee_id,genre_id) VALUES('$video_id','$artiste_id','$album_id','$annee_id','$genre_id','$qualite');";
-    $wpdb->query($remplir_relation);
-
-
-}
 
 function recuperer_artiste_with_title(){
     // wp_send_json_success("teteteg");
